@@ -4,7 +4,6 @@ from math import *
 # from random import randint, uniform, seed, choice #для тестов
 from numpy import dot
 import time
-#from module.calculator import calculate, days_z
 from .matrixes import * 
 
 def days_z(year, month, day):
@@ -23,12 +22,11 @@ def days_z(year, month, day):
     sum += day
     return sum
 
-
 # ФИЗИЧЕСКИЕ (ИНВАРИАНТНЫЕ) ПАРАМЕТРЫ ЗЕМЛИ\n")
 R = 6371.032      # Средний радиус Земли, [км]
 a = 6378.245      # Большая полуось Земного элепсоида вращения, [км] Эллипсоид Красовского
 b = 6356.863019   # Малая полуось Земного элепсоида вращения, [км] Эллипсоид Красовского
-Age = 2015.0      # Эпоха
+
 
 F_g = [0]
 F_h = [0]
@@ -173,7 +171,6 @@ def Bzf(r, lamda, teta):
     potential = sum_n
     return -potential
 
-
 def calcMAG(north, east, alt, year):
 # Сферические гармонические коэффициенты для эпохи 2015-2020
     h11_igrf = 4797.1
@@ -252,6 +249,7 @@ def calculate(north, east, alt, year, UT):
     global a
     global b
     global F_h, F_g
+
     lamda = radians(east)
     fi = radians(north)
     a2 = a ** 2  # сокращения чтобы не писать несколько раз
