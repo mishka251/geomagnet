@@ -1,26 +1,9 @@
 # -*- coding: utf-8 -
 from datetime import *
 from math import *
-# from random import randint, uniform, seed, choice #для тестов
 from numpy import dot
 import time
-from .matrixes import * 
-
-def days_z(year, month, day):
-    """
-    Номер дня от начала года
-    вход year - год, month - номер месяца, day - номер день в месяце
-    """
-    #               ян фе ма ап ма ию ию ав се ок но де
-    day_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    if year % 4 == 0:
-        day_in_month[1] += 1  # високосный год
-
-    sum = 0
-    for i in range(month - 1):
-        sum += day_in_month[i]
-    sum += day
-    return sum
+from .matrs import get_actual_matrixes2 
 
 # ФИЗИЧЕСКИЕ (ИНВАРИАНТНЫЕ) ПАРАМЕТРЫ ЗЕМЛИ\n")
 R = 6371.032      # Средний радиус Земли, [км]
@@ -28,14 +11,27 @@ a = 6378.245      # Большая полуось Земного элепсои�
 b = 6356.863019   # Малая полуось Земного элепсоида вращения, [км] Эллипсоид Красовского
 
 
-F_g = [0]
-F_h = [0]
+PI_cache = [1]
+def PI_odd_cached(n):
+    """
+     Вычисление PI_odd с кешированием.
+     Результаты запиываются в массив, потом из него извелкаются
+    """
+    global PI_cache
+    while n >= len(PI_cache):
+        PI_cache.append(PI_cache[len(PI_cache) - 1] * (2 * len(PI_cache) - 1))
+    return PI_cache[n]
 
-def PI_odd(n):
-    res = 1
-    for i in range(1, n + 1):
-        res *= (2 * i - 1)
-    return res
+factorials_cache = [1]
+def factorial_cached(n):
+    """
+    Вычисление факториала с кешированием
+    """
+    global factorials_cache
+    while len(factorials_cache)<=n:
+        factorials_cache.append(factorials_cache[len(factorials_cache)-1]*len(factorials_cache))
+    return factorials_cache[n]
+
 
 def epsilon(i):
     """
@@ -66,9 +62,9 @@ def P(n, m, teta):
     for i in range(0, 7):
         s[i] = pr[i] / dels[i] * ((cos(teta)) ** (n - m - (2 * i)))
 
-    b = epsilon(m) / (factorial(n + m) * factorial(n - m))
+    b = epsilon(m) / (factorial_cached(n + m) * factorial_cached(n - m))
     sum = (s[0] - s[1] + s[2] - s[3] + s[4] - s[5] + s[6])
-    return PI_odd(n) * sqrt(b) * (sin(teta) ** m) * sum
+    return PI_odd_cached(n) * sqrt(b) * (sin(teta) ** m) * sum
 
 def dPdtet(n, m, teta):
     """функция расчета производной
@@ -94,20 +90,21 @@ def dPdtet(n, m, teta):
     for i in range(0, 7):
         s2[i] = pr[i] / dels[i] * ((n - m - (2 * i)) * ((cos(teta)) ** (n - m - (2 * i) - 1)) * (-sin(teta)))
 
-    b = epsilon(m) / (factorial(n + m) * factorial(n - m))
+    b = epsilon(m) / (factorial_cached(n + m) * factorial_cached(n - m))
     sum1 = (s[0] - s[1] + s[2] - s[3] + s[4] - s[5] + s[6])
     sum2 = (s2[0] - s2[1] + s2[2] - s2[3] + s2[4] - s2[5] + s2[6])
-    mnoj = PI_odd(n) * sqrt(b)
+    mnoj = PI_odd_cached(n) * sqrt(b)
     slag1 = m * (sin(teta) ** (m - 1)) * cos(teta) * sum1
     slag2 = (sin(teta) ** m) * sum2
     return mnoj * (slag1 + slag2)
 
-def Uf(r, lamda, teta):
+def Uf(r, lamda, teta, F_g, F_h):
     """
     Функция расчета потенциала индукции геомагнитного поля
     внутреземных источников _U(_r,_lamda,_tetta)
     """
-    global F_h, F_g
+    global R
+    N = len(F_g)
     sum_n = 0  # суммирование п,
     for n in range(1, N):  # N - максимальная степень норм.  по Шмидту присоединенных функций Лежандра
         sum_m = 0
@@ -119,12 +116,13 @@ def Uf(r, lamda, teta):
     potential = R * sum_n
     return potential
 
-def Bxf(r, lamda, teta):
+def Bxf(r, lamda, teta, F_g, F_h):
     """
     функция расчёта составляющей вектора индукции главного поля X’
     На основе производной dU(r, lamda, teta)/dteta
     """
-    global F_h, F_g
+    global R
+    N = len(F_g)
     sum_n = 0  # суммирование п,
     for n in range(1, N):  # N - максимальная степень норм.  по Шмидту присоединенных функций Лежандра
         sum_m = 0
@@ -136,12 +134,13 @@ def Bxf(r, lamda, teta):
     potential = sum_n
     return potential
 
-def Byf(r, lamda, teta):
+def Byf(r, lamda, teta, F_g, F_h):
     """
     функция расчёта составляющей вектора индукции главного поля  Y’
     На основе производной dU(r, lamda, teta)/dteta
     """
-    global F_h, F_g
+    global R
+    N = len(F_g)
     sum_n = 0   # суммирование п,
     for n in range(1, N):  # N - максимальная степень норм.  по Шмидту присоединенных функций Лежандра
         sum_m = 0
@@ -153,16 +152,16 @@ def Byf(r, lamda, teta):
     potential = sum_n / sin(teta)
     return potential
 
-def Bzf(r, lamda, teta):
+def Bzf(r, lamda, teta, F_g, F_h):
     """
     функция расчёта составляющей вектора индукции главного поля Z`
     На основе производной dU(r, lamda, teta)/dteta
     """
-    global F_h, F_g
+    global R
+    N = len(F_g)
     sum_n = 0  # суммирование п,
     for n in range(1, N):  # N - максимальная степень норм.  по Шмидту присоединенных функций Лежандра
         sum_m = 0
-        pi_odd_n = PI_odd(n)
         for m in range(0, n + 1):  # суммирование по m
             tmp = (F_g[n][m] * cos(m * lamda) + F_h[n][m] * sin(m * lamda))
             half_REZ = tmp * P(n, m, teta)
@@ -171,20 +170,12 @@ def Bzf(r, lamda, teta):
     potential = sum_n
     return -potential
 
-def calcMAG(north, east, alt, year):
-# Сферические гармонические коэффициенты для эпохи 2015-2020
-    h11_igrf = 4797.1
-    g11_igrf = -1501
-    g10_igrf = -29442
-
-    g10_sv = 10.3
-    g11_sv = 18.1
-    h11_sv = -22.6
-
-    h11 = h11_igrf + h11_sv * (year - Age)
-    g11 = g11_igrf + g11_sv * (year - Age)
-    g10 = g10_igrf + g10_sv * (year - Age)
+def calcMAG(north, east, alt, F_g, F_h):
     global a, b
+
+    h11 = F_h[1][1]
+    g11 = F_g[1][1]
+    g10 = F_g[1][0]    
 # координаты в географической системе (GEO), переведенные в радианы
     latGEO = radians(north)
     longGEO = radians(east)
@@ -210,17 +201,13 @@ def calcMAG(north, east, alt, year):
     GEO = [xGEO, yGEO, zGEO]
 
 # Поворотные матрицы 3x3
-    t5Y = [
-        [cos(fi), 0, sin(fi)],
+    t5Y = [[cos(fi), 0, sin(fi)],
         [0,       1,    0],
-        [-sin(fi),  0, cos(fi)]
-    ]
+        [-sin(fi),  0, cos(fi)]]
 
-    t5Z = [
-        [cos(lamda), sin(lamda), 0],
+    t5Z = [[cos(lamda), sin(lamda), 0],
         [-sin(lamda), cos(lamda), 0],
-        [0,               0,      1]
-    ]
+        [0,               0,      1]]
 # Умножение матриц: t5 = t5Y*t5Z
     t5 = dot(t5Y, t5Z)
 
@@ -246,9 +233,7 @@ def calculate(north, east, alt, year, UT):
     UT - ???
 
     """
-    global a
-    global b
-    global F_h, F_g
+    global a, b
 
     lamda = radians(east)
     fi = radians(north)
@@ -263,26 +248,25 @@ def calculate(north, east, alt, year, UT):
     # Полярный угол
     teta = (pi / 2) - fi_sh
     # поправка на геоид (полярное сжатие Земли)
-    r = sqrt((alt ** 2) + 2 * alt * tmp +
-             ((a ** 4) * cosfi2 + (b ** 4) * sinfi2) / (tmp ** 2))
+    r = sqrt((alt ** 2) + 2 * alt * tmp + ((a ** 4) * cosfi2 + (b ** 4) * sinfi2) / (tmp ** 2))
 
-    (F_g, F_h) = get_actual_matrixes(year)
+    [Age, N, IGRF_g, IGRF_h, SV_g, SV_h, F_g, F_h] = get_actual_matrixes2(year)
     # Актуализация матриц сферических гармонических коэффициентов
 
 
 # составляющие вектора индукции геомагнитного поля внутриземных источников
     try:
-        BX = Bxf(r, lamda, teta)
+        BX = Bxf(r, lamda, teta, F_g, F_h)
     except ZeroDivisionError:
         BX = 1
     try:
-        BY = Byf(r, lamda, teta)
+        BY = Byf(r, lamda, teta, F_g, F_h)
     except ValueError:
         BY = 1
     except ZeroDivisionError:
         BY = 1
     try:
-        BZ = Bzf(r, lamda, teta)
+        BZ = Bzf(r, lamda, teta, F_g, F_h)
     except ZeroDivisionError:
         BZ = 1
 
@@ -308,9 +292,9 @@ def calculate(north, east, alt, year, UT):
 
 # Магнитный момент геомагнитного диполя
     M = (r ** 3) * sqrt(IGRF_g[1][0] ** 2 + IGRF_g[1][1] ** 2 + IGRF_h[1][1] ** 2)
-    U = Uf(r, lamda, teta)
+    U = Uf(r, lamda, teta, F_g, F_h)
 
-    [latMAG, longMAG, absMAG] = calcMAG(north, east, alt, year)
+    [latMAG, longMAG, absMAG] = calcMAG(north, east, alt, F_g, F_h)
 
     proto_f = [0] * 16
     proto_f[0] = teta
@@ -331,4 +315,3 @@ def calculate(north, east, alt, year, UT):
     proto_f[15] = absMAG
 
     return proto_f
-
