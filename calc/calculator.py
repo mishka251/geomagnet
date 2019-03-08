@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -
 from datetime import *
 from math import *
-from numpy import dot
+from numpy import dot, arange, inf
 import time
 from .matrs import get_actual_matrixes2 
 
@@ -9,8 +9,6 @@ from .matrs import get_actual_matrixes2
 R = 6371.032      # Средний радиус Земли, [км]
 a = 6378.245      # Большая полуось Земного элепсоида вращения, [км] Эллипсоид Красовского
 b = 6356.863019   # Малая полуось Земного элепсоида вращения, [км] Эллипсоид Красовского
-
-
 PI_cache = [1]
 def PI_odd_cached(n):
     """
@@ -28,8 +26,8 @@ def factorial_cached(n):
     Вычисление факториала с кешированием
     """
     global factorials_cache
-    while len(factorials_cache)<=n:
-        factorials_cache.append(factorials_cache[len(factorials_cache)-1]*len(factorials_cache))
+    while len(factorials_cache) <= n:
+        factorials_cache.append(factorials_cache[len(factorials_cache) - 1] * len(factorials_cache))
     return factorials_cache[n]
 
 
@@ -222,15 +220,15 @@ def calcMAG(north, east, alt, F_g, F_h):
 
     return [latMAG, longMAG, sqrt((MAG[0] ** 2) + (MAG[1] ** 2) + (MAG[2] ** 2))]
 
-
-def calculate(north, east, alt, year, UT):
+def getCoordinates(north, east, alt):
     """
-    Расчёт параметров геомагнитного поля в заданной точке в заданное время
-    north - северная широта(южня со знаком "-")
-    east - долгота
+    Преобразование географических координат
+    В сферические
+    Аргументы:
+    north - широта(северная+, южная -)
+    east - долгота(восточная +, западная -)
     alt - высота над уровнем моря
-    year - дата(например 2015.5 - июль 2015 года(половина года прошла))
-    UT - ???
+    Возвращает [lamda, teta, r]
 
     """
     global a, b
@@ -249,6 +247,21 @@ def calculate(north, east, alt, year, UT):
     teta = (pi / 2) - fi_sh
     # поправка на геоид (полярное сжатие Земли)
     r = sqrt((alt ** 2) + 2 * alt * tmp + ((a ** 4) * cosfi2 + (b ** 4) * sinfi2) / (tmp ** 2))
+    return [lamda, teta, r, fi, fi_sh]
+
+
+def calculate(north, east, alt, year, UT):
+    """
+    Расчёт параметров геомагнитного поля в заданной точке в заданное время
+    north - северная широта(южня со знаком "-")
+    east - долгота
+    alt - высота над уровнем моря
+    year - дата(например 2015.5 - июль 2015 года(половина года прошла))
+    UT - ???
+
+    """
+    [lamda, teta, r, fi, fi_sh] = getCoordinates(north, east, alt) 
+    
 
     [Age, N, IGRF_g, IGRF_h, SV_g, SV_h, F_g, F_h] = get_actual_matrixes2(year)
     # Актуализация матриц сферических гармонических коэффициентов
@@ -315,3 +328,10 @@ def calculate(north, east, alt, year, UT):
     proto_f[15] = absMAG
 
     return proto_f
+
+
+
+def getIsolines(year):
+    f = open('calc/log2014.txt', 'r')
+    line = f.readline()
+    return line

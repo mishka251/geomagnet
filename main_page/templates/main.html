@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 {% load staticfiles %}
 <!--[if lt IE 7]><html lang="ru" class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
 <!--[if IE 7]><html lang="ru" class="lt-ie9 lt-ie8"><![endif]-->
@@ -7,367 +7,391 @@
 <html lang="ru">
 <!--<![endif]-->
 <head>
-	<meta charset="utf-8" />
-	<title>Geomagnet</title>
-		
+    <meta charset="utf-8" />
+    <title>Geomagnet</title>
 
-	<meta name="description" content="" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="shortcut icon" href="favicon.png" />
-	<link rel="stylesheet" href="{%static "libs/bootstrap/bootstrap-grid-3.3.1.min.css"%}" />
-	<link rel="stylesheet" href="{%static "libs/font-awesome-4.2.0/css/font-awesome.min.css"%}" />
-	<link rel="stylesheet" href="{%static "libs/fancybox/jquery.fancybox.css"%}" />
-	<link rel="stylesheet" href="{%static "libs/owl-carousel/owl.carousel.css"%}" />
-	<link rel="stylesheet" href="{%static "libs/owl-carousel/owl.theme.css"%}" />
-	<link rel="stylesheet" href="{%static "libs/countdown/jquery.countdown.css"%}" />
-	<link rel="stylesheet" href="{%static "css/fonts.css"%}" />
-	<link rel="stylesheet" href="{%static "css/main.css"%}" />
-	<link rel="stylesheet" href="{%static "css/media.css"%}" />
-	<link rel="stylesheet" href="{%static "libs/wow/animate.min.css"%}"/>
-	<link rel="stylesheet" type="text/css" href="{%static "libs/CaptionHoverEffects/css/default.css"%}" />
-	<link rel="stylesheet" type="text/css" href="{%static "libs/CaptionHoverEffects/css/component.css"%}" />
-	<link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet"/>
-	<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<link rel="stylesheet" href="https://js.arcgis.com/3.12/esri/css/esri.css">
-	<link rel="stylesheet" href="https://js.arcgis.com/3.12/dijit/themes/claro/claro.css">	
+
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="stylesheet" href="{%static "libs/bootstrap/bootstrap-grid-3.3.1.min.css"%}" />
+    <link rel="stylesheet" href="{%static "libs/font-awesome-4.2.0/css/font-awesome.min.css"%}" />
+    <link rel="stylesheet" href="{%static "libs/fancybox/jquery.fancybox.css"%}" />
+    <link rel="stylesheet" href="{%static "libs/owl-carousel/owl.carousel.css"%}" />
+    <link rel="stylesheet" href="{%static "libs/owl-carousel/owl.theme.css"%}" />
+    <link rel="stylesheet" href="{%static "libs/countdown/jquery.countdown.css"%}" />
+    <link rel="stylesheet" href="{%static "css/fonts.css"%}" />
+    <link rel="stylesheet" href="{%static "css/main.css"%}" />
+    <link rel="stylesheet" href="{%static "css/media.css"%}" />
+    <link rel="stylesheet" href="{%static "libs/wow/animate.min.css"%}"/>
+    <link rel="stylesheet" type="text/css" href="{%static "libs/CaptionHoverEffects/css/default.css"%}" />
+    <link rel="stylesheet" type="text/css" href="{%static "libs/CaptionHoverEffects/css/component.css"%}" />
+    <link href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+
+    <!--link rel="stylesheet" href="https://js.arcgis.com/3.27/esri/css/esri.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.27/dijit/themes/claro/claro.css"-->
+
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
+
+
     <link href="{%static "libs/switch/bootstrap-switch.css"%}" rel="stylesheet"/>
     <link href="{%static "libs/switch/switch.css"%}" rel="stylesheet"/>
 </head>
 <body>
-	<!--[if lt IE 9]>
-	<script src="libs/html5shiv/es5-shim.min.js"></script>
-	<script src="libs/html5shiv/html5shiv.min.js"></script>
-	<script src="libs/html5shiv/html5shiv-printshiv.min.js"></script>
-	<script src="libs/respond/respond.min.js"></script>
-	<![endif]-->
-	<script src="{%static "libs/jquery/jquery-1.11.1.min.js"%}"></script>
-	<script src="{%static "libs/jquery-mousewheel/jquery.mousewheel.min.js"%}"></script>
-	<script src="{%static "libs/fancybox/jquery.fancybox.pack.js"%}"></script>
-	<script src="{%static "libs/waypoints/waypoints-1.6.2.min.js"%}"></script>
-	<script src="{%static "libs/scrollto/jquery.scrollTo.min.js"%}"></script>
-	<script src="{%static "libs/owl-carousel/owl.carousel.js"%}"></script>
-	<script src="{%static "libs/countdown/jquery.plugin.js"%}"></script>
-	<script src="{%static "libs/countdown/jquery.countdown.min.js"%}"></script>
-	<script src="{%static "libs/countdown/jquery.countdown-ru.js"%}"></script>
-	<script src="{%static "libs/landing-nav/navigation.js"%}"></script>
-	<script src="{%static "js/common.js"%}"></script>	
-	<script src="{%static "libs/wow/wow.min.js"%}"></script>
-	<script src="{%static "libs/salvattore/salvattore.min.js"%}"></script>
-	<script src="{%static "libs/CaptionHoverEffects/js/modernizr.custom.js"%}"></script>
-	<script src="{%static "libs/switch/bootstrap-switch.js"%}"></script>
-	<script src="{%static "libs/placeholdem/placeholdem.min.js"%}"></script>
-	<script src="{%static "libs/jquery/jquery-ui.js"%}"></script>
-	<script src="https://js.arcgis.com/3.12/"></script>
-<script type="text/javascript" src="{%static "libs/jquery.ui.datepicker-en.js"%}"></script>
-<script src="{%static "wmm/jquery.maskedinput.js"%}"></script>
-<script type="text/javascript" src="{%static "wmm/script.js"%}"></script>
+    <!--[if lt IE 9]>
+    <script src="libs/html5shiv/es5-shim.min.js"></script>
+    <script src="libs/html5shiv/html5shiv.min.js"></script>
+    <script src="libs/html5shiv/html5shiv-printshiv.min.js"></script>
+    <script src="libs/respond/respond.min.js"></script>
+    <![endif]-->
+    <script src="{%static "libs/jquery/jquery-1.11.1.min.js"%}"></script>
+    <script src="{%static "libs/jquery-mousewheel/jquery.mousewheel.min.js"%}"></script>
+    <script src="{%static "libs/fancybox/jquery.fancybox.pack.js"%}"></script>
+    <script src="{%static "libs/waypoints/waypoints-1.6.2.min.js"%}"></script>
+    <script src="{%static "libs/scrollto/jquery.scrollTo.min.js"%}"></script>
+    <script src="{%static "libs/owl-carousel/owl.carousel.js"%}"></script>
+    <script src="{%static "libs/countdown/jquery.plugin.js"%}"></script>
+    <script src="{%static "libs/countdown/jquery.countdown.min.js"%}"></script>
+    <script src="{%static "libs/countdown/jquery.countdown-ru.js"%}"></script>
+    <script src="{%static "libs/landing-nav/navigation.js"%}"></script>
+    <script src="{%static "js/common.js"%}"></script>
+    <script src="{%static "libs/wow/wow.min.js"%}"></script>
+    <script src="{%static "libs/salvattore/salvattore.min.js"%}"></script>
+    <script src="{%static "libs/CaptionHoverEffects/js/modernizr.custom.js"%}"></script>
+    <script src="{%static "libs/switch/bootstrap-switch.js"%}"></script>
+    <script src="{%static "libs/placeholdem/placeholdem.min.js"%}"></script>
+    <script src="{%static "libs/jquery/jquery-ui.js"%}"></script>
 
- 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEhtvfB8qhDSDgd9rZfNe5QaTvUIhr5vM"></script>
-	<script type="text/javascript" src="https://www.google.com/jsapi?key=AIzaSyAEhtvfB8qhDSDgd9rZfNe5QaTvUIhr5vM"></script>	
-	<script src="{%static "wmm/html2pdf.js"%}"></script>
-<script type="text/javascript" src="{%static "wmm/jspdf.debug.js"%}"></script>
+    <!--script src="https://js.arcgis.com/3.27/"></script-->
+    <script src="https://js.arcgis.com/4.10/"></script>
+
+    <script type="text/javascript" src="{%static "libs/jquery.ui.datepicker-en.js"%}"></script>
+    <script src="{%static "wmm/jquery.maskedinput.js"%}"></script>
+    <script type="text/javascript" src="{%static "wmm/script.js"%}"></script>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEhtvfB8qhDSDgd9rZfNe5QaTvUIhr5vM"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi?key=AIzaSyAEhtvfB8qhDSDgd9rZfNe5QaTvUIhr5vM"></script>
+    <script src="{%static "wmm/html2pdf.js"%}"></script>
+    <script type="text/javascript" src="{%static "wmm/jspdf.debug.js"%}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.0.16/jspdf.plugin.autotable.js"></script>
-<style id="style">
-//.LocateButton{position: absolute; top:695px; left: 334px;z-index:1000}
-</style>
+    <style id="style">
+        //.LocateButton {
+            position: absolute;
+            top: 695px;
+            left: 334px;
+            z-index: 1000
+        }
+    </style>
 
 
-	<!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
-	<!-- Google Analytics counter --><!-- /Google Analytics counter -->
-	<header class="top_header">
-		<div class="header_topline">
-			<div class="container">
-				<div class="col-md-12">
-					<div class="row">						    
-					    <table style="float:left;margin-top:-3px;width: 28px;border-spacing: 2px 2px;border-collapse: separate;margin-right:5px">
-						        <tr>
-						            <td style="width:10px;height:12px;background-color:green"></td>
-						            <td style="width:10px;background-color:rgb(101, 149, 255)"></td>
-						        </tr>
-						        <tr>
-						            <td style="width:10px;height:12px;background-color:#003399"></td>
-						            <td style="width:10px;height:12px;background-color:rgb(153, 0, 204)"></td>
-						        </tr>						        
-						</table>
-						<div class="top_logo">
-							<a href="index.html" class="logo_geomagnet">GEOMAGNET</a>
-						</div>
-						<div class="mnu">
-							<nav class="main_mnu clearfix">						
-								<button class="main_mnu_button"><i class="fa fa-bars"></i></button>
-								<ul>							
-									<li><a href="about_us.html">About us</a></li>
-									<li><a href="grants.html">Grants & Awards</a></li>
-									<li><a href="publications.html">Publications</a></li>
-									<li><a href="contacts.html" style="margin-right:10px">Contact us</a></li>
-								</ul>								
-							</nav>					
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>		
-	</header>	
+    <!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
+    <!-- Google Analytics counter --><!-- /Google Analytics counter -->
+    <header class="top_header">
+        <div class="header_topline">
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="row">
+                        <table style="float:left;margin-top:-3px;width: 28px;border-spacing: 2px 2px;border-collapse: separate;margin-right:5px">
+                            <tr>
+                                <td style="width:10px;height:12px;background-color:green"></td>
+                                <td style="width:10px;background-color:rgb(101, 149, 255)"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:10px;height:12px;background-color:#003399"></td>
+                                <td style="width:10px;height:12px;background-color:rgb(153, 0, 204)"></td>
+                            </tr>
+                        </table>
+                        <div class="top_logo">
+                            <a href="index.html" class="logo_geomagnet">GEOMAGNET</a>
+                        </div>
+                        <div class="mnu">
+                            <nav class="main_mnu clearfix">
+                                <button class="main_mnu_button"><i class="fa fa-bars"></i></button>
+                                <!--<ul>
+                                    <li><a href="about_us.html">About us</a></li>
+                                    <li><a href="grants.html">Grants & Awards</a></li>
+                                    <li><a href="publications.html">Publications</a></li>
+                                    <li><a href="contacts.html" style="margin-right:10px">Contact us</a></li>
+                                </ul>-->
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        
+
     <div class="container-fluid">
         <div id="map" class="map">
-             <div id="LocateButton" class="wow bounceInRight animated"></div>
-         </div>
-			<div class="row">
-				<div id="menu_map" class="col-md-3" style="right:0px;max-width: 480px; min-width:300px; z-index:6; background-color: #d8d8d8; padding-top:5px;padding-bottom:45px;opacity:0.87;">
-					<div style="width:90%;display:inline-block;color:green;text-align:center;" class="wow zoomIn animated">
-						Geomagnetic Calculator
-					</div>
-					<div style="float:right">
-						<a href="javascript:demoFromHTML();" class="icon simple-text"><i class="fa fa-file-pdf-o"></i></a>
-					</div>
-					<div style="padding-right:10px; padding-top:25px; padding-left: 10px;">	
-						<input id="search" class="search" type="text" size="40" placeholder="Enter Address..."/> 
-					</div>
-					<div style="padding-top: 15px; padding-bottom: 5px; width:100%; text-align: center;">	
-						<span id="geocoords_title_dd" class="geocoords_title_dd">
-							Geographical (Geodetic) Coordinates [decimal degrees]
-						</span>
-						<span id="geocoords_title_ddd" class="geocoords_title_ddd">
-							Geographical (Geodetic) Coordinates [degrees - minutes - seconds]
-						</span>
-						<div class="material-switch pull-right">
-		          <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox" onChange="inputtype()" checked/>
-		          <label for="someSwitchOptionPrimary" class="label-default"></label>
-		         </div>
-					</div>	
-				<div>
-					<div class="col">
-						<div class="col-child">  
-							<span class="simple-text">Latitude</span>
-				      <input id="lat-simple" type="text" class="lat-input simple-text allownumericwithdecimal" required size="13"/>					
-				      <input id="lat-mask" type="text" class="lat-input simple-text" required data-masked-input="99°99'99.99" placeholder="XX°XX'XX.XX''" size="13" style="display:none"/>
-				      
-			    	</div>
-						<div style="display: inline-block;margin: 0 0; padding-left:0px">
-							    <label class="switch" style='padding-left: -10px'>
-							      <input id="switch_N" type="checkbox" class="switch-input" checked onChange="check_switch_N()">
-							      <span class="switch-label" data-on="N" data-off="S"></span>
-							      <span class="switch-handle"></span>
-							    </label>
-						</div>  
-					</div>
-					<div class="col">
-						<div class="col-child">  
-							<span class="simple-text">Longitude</span>
-				      <input id="long-simple" type="text" class="lat-input simple-text  allownumericwithdecimal" required  size="13"/>							
-				      <input id="long-mask" type="text" class="lat-input simple-text" required data-masked-input="999°99'99.99" placeholder="XXX°XX'XX.XX''" size="13" style="display:none"/>
-				    
-			    	</div>
-						<div class="col-child">
-							    <label class="switch">
-							      <input id="switch_E" type="checkbox" class="switch-input" checked onChange="check_switch_E()">
-							      <span class="switch-label" data-on="E" data-off="W"></span>
-							      <span class="switch-handle"></span>
-							    </label>
-						</div>  
-					</div>
-				</div>
-				<div>
-						<div class="col">
-											<div class="col-child">  
-												<span class="simple-text">Elevation</span>
-									      <input id="alt" type="text" class="lat-input simple-text allownumericwithdecimal" required>
-									      
-								    	</div>
-											<div class="col-child">
-												    <label class="switch">
-												      <input id="switch_km" type="checkbox" class="switch-input" checked onChange="check_switch_km()">
-												      <span class="switch-label" data-on="km" data-off="ft"></span>
-												      <span class="switch-handle"></span>
-												    </label>
-											</div>  
-						</div>	
-						<div class="col">
-											<div class="col-child">  
-												<span class="simple-text">Date</span>
-									      <input id="data1" type="text" class="lat-input simple-text" required>
-									      
-								    	</div>
-								    	<div class="input-group-addon" style="cursor: pointer;display:inline-block;font-size: 20px; padding:0 0 0 0; margin-top: 10px" onclick="$('#data1').focus();">
-												<i class="icon fa fa-calendar simple-text"></i>
-										  </div>
-						</div>				
-				</div>
-				<div style="padding-top: 25px">
-					<table>
-						<tbody>
-							<tr>
-								<td class="data_title" colspan="3">
-								Geomagnetic Coordinates
-								</td>
-							</tr>
-							<tr>
-								<td>Latitude (MAG)</td>
-								<td>Longitude (MAG)</td>
-								<td>R (MAG), [km]</td>
-							</tr>
-							<tr>
-								<td><span id="X_">Null</span></td>
-								<td><span id="Y_">Null</span></td>
-								<td><span id="Z_">Null</span></td>							
-							</tr>
-							<tr>
-								<td class="data_title" colspan="3">
-									Parameters of Geomagnetic Dipole
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">Coordinates of North Pole, [degrees]</td>
-								<td><span id="shir_geopole">Null</span> N<br/><span id="dolg_geopole">Null</span> E</td>
-							</tr>
-							<tr>
-								<td colspan="2">Magnetic Moment, [T∙m3]</td>
-								<td><span id="mom_geo">Null</span></td>
-							</tr>		
-							<tr>
-								<td class="data_title" colspan="3">
-									Parameters of Geomagnetic Field
-								</td>
-							</tr>							
-							<tr>
-								<td colspan="2">Induction Potential, [nT∙km]</td>
-								<td><span id="pot_ind">Null</span></td>
-							</tr>
-							<tr>
-								<td colspan="2">North Component (X), [nT]</td>
-								<td><span id="Bx">Null</span></td>
-							</tr>
-							<tr>
-								<td colspan="2">East Component (Y), [nT]</td>
-								<td><span id="By">Null</span></td>
-							</tr>
-							<tr>
-								<td colspan="2">Down Component (Z), [nT]</td>
-								<td><span id="Bz">Null</span></td>
-							</tr>
-							<tr>
-								<td colspan="2">Total Intensity (F), [nT]</td>
-								<td><span id="B">Null</span></td>
-							</tr>
-							<tr>
-								<td colspan="2">Magnetic Declination, [degrees]</td>
-								<td><span id="m_skl">Null</span></td>
-							</tr>
-							<tr>
-								<td colspan="2">Magnetic Inclination, [degrees]</td>
-								<td><span id="m_nakl">Null</span></td>
-							</tr>																		
-						</tbody>
-					</table>
-				</div>
-				
-			</div>
-			</div>
+            <div id="LocateButton" class="wow bounceInRight animated"></div>
+        </div>
+        <div class="row">
+            <div id="menu_map" class="col-md-3" style="right:0px;max-width: 480px; min-width:300px; z-index:6; background-color: #d8d8d8; padding-top:5px;padding-bottom:45px;opacity:0.87;">
+                <div style="width:90%;display:inline-block;color:green;text-align:center;" class="wow zoomIn animated">
+                    Geomagnetic Calculator
+                </div>
+                <div style="float:right">
+                    <a href="javascript:demoFromHTML();" class="icon simple-text"><i class="fa fa-file-pdf-o"></i></a>
+                </div>
+                <div style="padding-right:10px; padding-top:25px; padding-left: 10px;">
+                    <input id="search" class="search" type="text" size="40" placeholder="Enter Address..." />
+                </div>
+                <div style="padding-top: 15px; padding-bottom: 5px; width:100%; text-align: center;">
+                    <span id="geocoords_title_dd" class="geocoords_title_dd">
+                        Geographical (Geodetic) Coordinates [decimal degrees]
+                    </span>
+                    <span id="geocoords_title_ddd" class="geocoords_title_ddd">
+                        Geographical (Geodetic) Coordinates [degrees - minutes - seconds]
+                    </span>
+                    <div class="material-switch pull-right">
+                        <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox" onChange="inputtype()" checked />
+                        <label for="someSwitchOptionPrimary" class="label-default"></label>
+                    </div>
+                </div>
+                <div>
+                    <div class="col">
+                        <div class="col-child">
+                            <span class="simple-text">Latitude</span>
+                            <input id="lat-simple" type="text" class="lat-input simple-text allownumericwithdecimal" required size="13" />
+                            <input id="lat-mask" type="text" class="lat-input simple-text" required data-masked-input="99°99'99.99" placeholder="XX°XX'XX.XX''" size="13" style="display:none" />
+
+                        </div>
+                        <div style="display: inline-block;margin: 0 0; padding-left:0px">
+                            <label class="switch" style='padding-left: -10px'>
+                                <input id="switch_N" type="checkbox" class="switch-input" checked><!--onChange="check_switch_N()"-->
+                                <span class="switch-label" data-on="N" data-off="S"></span>
+                                <span class="switch-handle"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="col-child">
+                            <span class="simple-text">Longitude</span>
+                            <input id="long-simple" type="text" class="lat-input simple-text  allownumericwithdecimal" required size="13" />
+                            <input id="long-mask" type="text" class="lat-input simple-text" required data-masked-input="999°99'99.99" placeholder="XXX°XX'XX.XX''" size="13" style="display:none" />
+
+                        </div>
+                        <div class="col-child">
+                            <label class="switch">
+                                <input id="switch_E" type="checkbox" class="switch-input" checked > <!--onChange="check_switch_E()"-->
+                                <span class="switch-label" data-on="E" data-off="W"></span>
+                                <span class="switch-handle"></span>
+                            </label>
+                        </div>
+
+                        <div class="col-child">
+                            <label class="switch">
+                                <input id="switch_2d3d" type="checkbox" class="switch-input" checked > <!--onChange="check_switch_2d3d()"-->
+                                <span class="switch-label" data-on="2D" data-off="3D"></span>
+                                <span class="switch-handle"></span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="col">
+                        <div class="col-child">
+                            <span class="simple-text">Elevation</span>
+                            <input id="alt" type="text" class="lat-input simple-text allownumericwithdecimal" required>
+
+                        </div>
+                        <div class="col-child">
+                            <label class="switch">
+                                <input id="switch_km" type="checkbox" class="switch-input" checked><!--onChange="check_switch_km()"-->
+                                <span class="switch-label" data-on="km" data-off="ft"></span>
+                                <span class="switch-handle"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="col-child">
+                            <span class="simple-text">Date</span>
+                            <input id="data1" type="text" class="lat-input simple-text" required>
+
+                        </div>
+                        <div class="input-group-addon" style="cursor: pointer;display:inline-block;font-size: 20px; padding:0 0 0 0; margin-top: 10px" onclick="$('#data1').focus();">
+                            <i class="icon fa fa-calendar simple-text"></i>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 25px">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="data_title" colspan="3">
+                                    Geomagnetic Coordinates
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Latitude (MAG)</td>
+                                <td>Longitude (MAG)</td>
+                                <td>R (MAG), [km]</td>
+                            </tr>
+                            <tr>
+                                <td><span id="X_">Null</span></td>
+                                <td><span id="Y_">Null</span></td>
+                                <td><span id="Z_">Null</span></td>
+                            </tr>
+                            <tr>
+                                <td class="data_title" colspan="3">
+                                    Parameters of Geomagnetic Dipole
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Coordinates of North Pole, [degrees]</td>
+                                <td><span id="shir_geopole">Null</span> N<br /><span id="dolg_geopole">Null</span> E</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Magnetic Moment, [T∙m3]</td>
+                                <td><span id="mom_geo">Null</span></td>
+                            </tr>
+                            <tr>
+                                <td class="data_title" colspan="3">
+                                    Parameters of Geomagnetic Field
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Induction Potential, [nT∙km]</td>
+                                <td><span id="pot_ind">Null</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">North Component (X), [nT]</td>
+                                <td><span id="Bx">Null</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">East Component (Y), [nT]</td>
+                                <td><span id="By">Null</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Down Component (Z), [nT]</td>
+                                <td><span id="Bz">Null</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Total Intensity (F), [nT]</td>
+                                <td><span id="B">Null</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Magnetic Declination, [degrees]</td>
+                                <td><span id="m_skl">Null</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Magnetic Inclination, [degrees]</td>
+                                <td><span id="m_nakl">Null</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
 
 
     </div>
-<div id="report" style="width:2px;display:none;z-index:-1000;position:fixed; top:0px;left:-1000px; background-color:white; color:white">
-    <h2>REPORT</h2><br/>
-    
- <center><b>Geographical (Geodetic) Coordinates</b></center>  
-    <table style="width:2px;align:center;background-color:white; color:white; border: 1px solid transparent">
-        <tr>
-            <td>Latitude</td>
-            <td>Longitude</td>
-            <td>Elevation</td>
-            <td>Date</td>
-        </tr>
-        <tr>
-            <td><span id="lat_print">undefined</span>&nbsp;&nbsp;&nbsp;&deg; N</td>
-            <td><span id="long_print">undefined</span>&nbsp;&deg; E</td>
-            <td><span id="alt_print">undefined</span> km</td>
-            <td><span id="date_print">undefined</span></td>
-        </tr>
-    </table>
- <center><b>Geomagnetic Coordinates</b></center>     
-      <table border="0" style="width:2px;align:center;background-color:white; color:white;">
-        <tr>
-            <td>X</td>
-            <td>Y</td>
-            <td>Z</td>
-        </tr>
-        <tr>
-            <td><span id="X_print">undefined</span></td>
-            <td><span id="Y_print">undefined</span></td>
-            <td><span id="Z_print">undefined</span></td>
-        </tr>
-    </table>  
-  <center><b>Parameters of Geomagnetic Dipole</b></center>     
-       <table border="0" style="width:2px;align:center;background-color:white; color:white;">
-        <tr>
-            <td>Coordinates of North Geomagnetic Pole</td>
-            <td>Magnetic Moment</td>
-        </tr>
-        <tr>
-            <td><span id="shir_geopole_print">undefined</span>&deg; N, <span id="dolg_geopole_print">undefined</span>&deg;E</td>
-            <td><span id="mom_geo_print">undefined</span> T &middot; m&sup3;</td>
-        </tr>
-    </table>   
-  <center><b>Parameters of Geomagnetic Field</b></center>  
-  <table border="0" style="width:2px;align:center;background-color:white; color:white;">
-      <tr>
-          <td>U</td>
-          <td>X</td>
-          <td>Y</td>
-          <td>Z</td>
-          <td>F</td>
-          <td>D</td>
-          <td>I</td>
-      </tr>
-      <tr>
-          <td><span id="pot_ind_print">undefined</span> nT &middot; km</td>
-          <td><span id="Bx_print">undefined</span> nT</td>
-          <td><span id="By_print">undefined</span> nT</td>
-          <td><span id="Bz_print">undefined</span> nT</td>
-          <td><span id="B_print">undefined</span> nT</td>
-          <td><span id="m_skl_print">undefined</span>&deg;</td>
-          <td><span id="m_nakl_print">undefined</span>&deg;</td>
-      </tr>      
-  </table>
-  generated by GEOMAGNET at <span id="timestamp"></span>
-</div>    
+    <div id="report" style="width:2px;display:none;z-index:-1000;position:fixed; top:0px;left:-1000px; background-color:white; color:white">
+        <h2>REPORT</h2><br />
+
+        <center><b>Geographical (Geodetic) Coordinates</b></center>
+        <table style="width:2px;align:center;background-color:white; color:white; border: 1px solid transparent">
+            <tr>
+                <td>Latitude</td>
+                <td>Longitude</td>
+                <td>Elevation</td>
+                <td>Date</td>
+            </tr>
+            <tr>
+                <td><span id="lat_print">undefined</span>&nbsp;&nbsp;&nbsp;&deg; N</td>
+                <td><span id="long_print">undefined</span>&nbsp;&deg; E</td>
+                <td><span id="alt_print">undefined</span> km</td>
+                <td><span id="date_print">undefined</span></td>
+            </tr>
+        </table>
+        <center><b>Geomagnetic Coordinates</b></center>
+        <table border="0" style="width:2px;align:center;background-color:white; color:white;">
+            <tr>
+                <td>X</td>
+                <td>Y</td>
+                <td>Z</td>
+            </tr>
+            <tr>
+                <td><span id="X_print">undefined</span></td>
+                <td><span id="Y_print">undefined</span></td>
+                <td><span id="Z_print">undefined</span></td>
+            </tr>
+        </table>
+        <center><b>Parameters of Geomagnetic Dipole</b></center>
+        <table border="0" style="width:2px;align:center;background-color:white; color:white;">
+            <tr>
+                <td>Coordinates of North Geomagnetic Pole</td>
+                <td>Magnetic Moment</td>
+            </tr>
+            <tr>
+                <td><span id="shir_geopole_print">undefined</span>&deg; N, <span id="dolg_geopole_print">undefined</span>&deg;E</td>
+                <td><span id="mom_geo_print">undefined</span> T &middot; m&sup3;</td>
+            </tr>
+        </table>
+        <center><b>Parameters of Geomagnetic Field</b></center>
+        <table border="0" style="width:2px;align:center;background-color:white; color:white;">
+            <tr>
+                <td>U</td>
+                <td>X</td>
+                <td>Y</td>
+                <td>Z</td>
+                <td>F</td>
+                <td>D</td>
+                <td>I</td>
+            </tr>
+            <tr>
+                <td><span id="pot_ind_print">undefined</span> nT &middot; km</td>
+                <td><span id="Bx_print">undefined</span> nT</td>
+                <td><span id="By_print">undefined</span> nT</td>
+                <td><span id="Bz_print">undefined</span> nT</td>
+                <td><span id="B_print">undefined</span> nT</td>
+                <td><span id="m_skl_print">undefined</span>&deg;</td>
+                <td><span id="m_nakl_print">undefined</span>&deg;</td>
+            </tr>
+        </table>
+        generated by GEOMAGNET at <span id="timestamp"></span>
+    </div>
     <script>
-        var menu_map_width = $('#menu_map').width()+50;
+        var menu_map_width = $('#menu_map').width() + 50;
         //console.log(menu_map_width);
-        document.getElementById('style').innerHTML = ".esriSimpleSliderTL {position:absolute;left:"+menu_map_width+"px;top:5px}.LocateButton{position: absolute; top:80px; left: "+menu_map_width+"px;z-index:1000}";
-        $(window).resize(function() {
-            var menu_map_width = $('#menu_map').width()+50;
-            document.getElementById('style').innerHTML = ".esriSimpleSliderTL {position:absolute;left:"+menu_map_width+"px;top:5px}.LocateButton{position: absolute; top:80px; left: "+menu_map_width+"px;z-index:1000}";
+        document.getElementById('style').innerHTML = ".esriSimpleSliderTL {position:absolute;left:" + menu_map_width + "px;top:5px}.LocateButton{position: absolute; top:80px; left: " + menu_map_width + "px;z-index:1000}";
+        $(window).resize(function () {
+            var menu_map_width = $('#menu_map').width() + 50;
+            document.getElementById('style').innerHTML = ".esriSimpleSliderTL {position:absolute;left:" + menu_map_width + "px;top:5px}.LocateButton{position: absolute; top:80px; left: " + menu_map_width + "px;z-index:1000}";
         })
     </script>
-<script>
-function demoFromHTML() {
-                document.getElementById("timestamp").innerHTML = new Date().toLocaleString();
-				var lat_print =	document.getElementById("lat_print").innerHTML;
-				var long_print = document.getElementById("long_print").innerHTML;
-				var alt_print =	document.getElementById("alt_print").innerHTML;
-				alt_print = parseFloat(alt_print).toFixed(3);
-				var date_print = document.getElementById("date_print").innerHTML;
-				var X_print = document.getElementById('X_print').innerHTML;
-				var Y_print = document.getElementById('Y_print').innerHTML;
-				var Z_print = document.getElementById('Z_print').innerHTML;					
-				var shir_geopole_print = document.getElementById('shir_geopole_print').innerHTML;
-				var dolg_geopole_print = document.getElementById('dolg_geopole_print').innerHTML;
-				var mom_geo_print = document.getElementById('mom_geo_print').innerHTML;					
-				var pot_ind_print =	document.getElementById('pot_ind_print').innerHTML;
-				var Bx_print = document.getElementById('Bx_print').innerHTML;
-				var By_print = document.getElementById('By_print').innerHTML;
-				var Bz_print = document.getElementById('Bz_print').innerHTML;
-				var B_print = document.getElementById('B_print').innerHTML;
-				var m_skl_print = document.getElementById('m_skl_print').innerHTML;
-				var m_nakl_print = document.getElementById('m_nakl_print').innerHTML;						
-				
-        var pdf = new jsPDF('p', 'pt', 'a4');
-        // pdf.addImage(base64_source, image format, X, Y, width, height)
-        var imgData  = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA6IAAAOiCAIAAADlmv3QAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAYkElEQVR42uzdvY4kWV7G4ffEicjM+uie7vlY7WolDEyEg4GDw3VwC3jrIXEFews4CDxsHAwktAbCQLgIhMnHLuz2zHRXdVVmRsQ5GFk13ctK4K3I7OfR9Ki6qp08Cp365T9PRpY/O/7Vj3/843/8/pKyTPOSrPO0ppQ6D+m1DUlSek/Shpak9CEA52DoGYZhXpZMNeP7DMNv/usP//KP/+K3ls+S9PGQpGWbpPYkSbmMx70kyTomOdYlyaYNydCHvF3yR39+v867mjFJK64R4KJ/C1gCAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAJkLAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMwFAACZCwAAMhcAAGQuAADIXAAAkLkAAMhcAACQuQAAIHMBAEDmAgCAzAUAQOYCAIDMBQAAmQsAADIXAABkLgAAyFwAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMBAEDmAgCAzAUAAJkLAAAyFwAAZC4AADIXAABkLgAAyFwAAJC5AAAgcwEAkLkAACBzAQBA5gIAgMwFAACZCwAAMhcAAJkLAAAyFwAAZC4AAMhcAACQuQAAyFwAAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMwFAACZCwAAMhcAAGQuAADIXAAAZC4AAMhcAACQuQAAIHMBAEDmAgCAzAUAQOYCAIDMBQAAmQsAADIXAABkLgAAMhcAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AAAgcwEAkLkAACBzAQBA5gIAgMwFAACZCwCAzAUAAJkLAAAyFwAAZC4AAMhcAACQuQAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAADIXAAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAABkLgAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAACZCwCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAAMhcAACQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMtAQAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAAMhcAACQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAGQuAADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AADIXAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAJkLAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMwFAACZCwAAMhcAAGQu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c+CSeZstAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMy1BAAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAAMhcAACQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAGQuAADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AADIXAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAJkLAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMwFAACZCwAAMhcAAGQuAADIXAAAkLkAAMhcAACQuQAAIHMBAEDmAgCAzAUAQOYCAIDMBQAAmQsAADIXAABkLgAAyFwAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMBAEDmAgCAzAUAAJkLAAAyFwAAZC4AADIXAABkLgAAyFwAAJC5AAAgcwEAkLkAACBzAQBA5gIAgMwFAACZCwAAMhcAAJkLAAAyFwAAZC4AAMhcAACQuQAAyFwAAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMwFAACZCwAAMhcAAGQuAADIXAAAZC4AAMhcAACQuQAAIHMBAEDmAgCAzAUAQOYCAIDMBQAAmQsAADIXAABkLgAAMhcAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AAAgcwEAkLkAACBzAQBA5gIAgMwFAACZCwCAzAUAAJkLAAAyFwAAZC4AAMhcAACQuQAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAADIXAAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAABkLgAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAEDmWgIAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AAAgcwEAkLkAACBzAQBA5gIAgMwFAACZCwCAzAUAAJkLAAAyFwAAZC4AAMhcAACQuQAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAADIXAAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAABkLgAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAACZCwCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAMCvyfiuZn15M377k5ubl8ehT3Xblnkap9bnJEl7auHTn15bsWjAeXi5lnmed1fbeZ2nQ2vz/XbaZ8nD9bhJSlrNmixJ1jIktWY868e7ljnJkClJ8j5JzTZ9TBufHugh//Lbfz282y0Py+vx1dVhcpEAF6z849r/7u+W15+Py5J5yfVV9nOWJeNHu9/Qn7/qkbnAufhszuGQzTa9Z5nz6kXu3j78/u9d1+R/Zm4uInPzIXNL3ifJKXN78pD0ZM3PfpLPh2xOGTy7RoBL9t8DACny45RrAEJ5AAAAAElFTkSuQmCC";
+    <script>
+        function demoFromHTML() {
+            document.getElementById("timestamp").innerHTML = new Date().toLocaleString();
+            var lat_print = document.getElementById("lat_print").innerHTML;
+            var long_print = document.getElementById("long_print").innerHTML;
+            var alt_print = document.getElementById("alt_print").innerHTML;
+            alt_print = parseFloat(alt_print).toFixed(3);
+            var date_print = document.getElementById("date_print").innerHTML;
+            var X_print = document.getElementById('X_print').innerHTML;
+            var Y_print = document.getElementById('Y_print').innerHTML;
+            var Z_print = document.getElementById('Z_print').innerHTML;
+            var shir_geopole_print = document.getElementById('shir_geopole_print').innerHTML;
+            var dolg_geopole_print = document.getElementById('dolg_geopole_print').innerHTML;
+            var mom_geo_print = document.getElementById('mom_geo_print').innerHTML;
+            var pot_ind_print = document.getElementById('pot_ind_print').innerHTML;
+            var Bx_print = document.getElementById('Bx_print').innerHTML;
+            var By_print = document.getElementById('By_print').innerHTML;
+            var Bz_print = document.getElementById('Bz_print').innerHTML;
+            var B_print = document.getElementById('B_print').innerHTML;
+            var m_skl_print = document.getElementById('m_skl_print').innerHTML;
+            var m_nakl_print = document.getElementById('m_nakl_print').innerHTML;
+
+            var pdf = new jsPDF('p', 'pt', 'a4');
+            // pdf.addImage(base64_source, image format, X, Y, width, height)
+            var imgData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA6IAAAOiCAIAAADlmv3QAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAYkElEQVR42uzdvY4kWV7G4ffEicjM+uie7vlY7WolDEyEg4GDw3VwC3jrIXEFews4CDxsHAwktAbCQLgIhMnHLuz2zHRXdVVmRsQ5GFk13ctK4K3I7OfR9Ki6qp08Cp365T9PRpY/O/7Vj3/843/8/pKyTPOSrPO0ppQ6D+m1DUlSek/Shpak9CEA52DoGYZhXpZMNeP7DMNv/usP//KP/+K3ls+S9PGQpGWbpPYkSbmMx70kyTomOdYlyaYNydCHvF3yR39+v867mjFJK64R4KJ/C1gCAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAJkLAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMwFAACZCwAAMhcAAGQuAADIXAAAkLkAAMhcAACQuQAAIHMBAEDmAgCAzAUAQOYCAIDMBQAAmQsAADIXAABkLgAAyFwAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMBAEDmAgCAzAUAAJkLAAAyFwAAZC4AADIXAABkLgAAyFwAAJC5AAAgcwEAkLkAACBzAQBA5gIAgMwFAACZCwAAMhcAAJkLAAAyFwAAZC4AAMhcAACQuQAAyFwAAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMwFAACZCwAAMhcAAGQuAADIXAAAZC4AAMhcAACQuQAAIHMBAEDmAgCAzAUAQOYCAIDMBQAAmQsAADIXAABkLgAAMhcAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AAAgcwEAkLkAACBzAQBA5gIAgMwFAACZCwCAzAUAAJkLAAAyFwAAZC4AAMhcAACQuQAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAADIXAAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAABkLgAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAACZCwCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAAMhcAACQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMtAQAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAAMhcAACQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAGQuAADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AADIXAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAJkLAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMwFAACZCwAAMhcAAGQu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c+CSeZstAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMy1BAAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAAMhcAACQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAGQuAADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AADIXAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAJkLAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMwFAACZCwAAMhcAAGQuAADIXAAAkLkAAMhcAACQuQAAIHMBAEDmAgCAzAUAQOYCAIDMBQAAmQsAADIXAABkLgAAyFwAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMBAEDmAgCAzAUAAJkLAAAyFwAAZC4AADIXAABkLgAAyFwAAJC5AAAgcwEAkLkAACBzAQBA5gIAgMwFAACZCwAAMhcAAJkLAAAyFwAAZC4AAMhcAACQuQAAyFwAAJC5AAAgcwEAQOYCAIDMBQAAmQsAgMwFAACZCwAAMhcAAGQuAADIXAAAZC4AAMhcAACQuQAAIHMBAEDmAgCAzAUAQOYCAIDMBQAAmQsAADIXAABkLgAAMhcAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AAAgcwEAkLkAACBzAQBA5gIAgMwFAACZCwCAzAUAAJkLAAAyFwAAZC4AAMhcAACQuQAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAADIXAAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAABkLgAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAEDmWgIAAGQuAADIXAAAkLkAACBzAQBA5gIAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AAAgcwEAkLkAACBzAQBA5gIAgMwFAACZCwCAzAUAAJkLAAAyFwAAZC4AAMhcAACQuQAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAADIXAAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAABkLgAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAAAyFwAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAACZCwCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCAIDMBQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAEDmAgAgcwEAQOYCAIDMBQAAmQsAADIXAACZCwAAMhcAAGQuAADIXAAAkLkAACBzAQCQuQAAIHMBAEDmAgCAzAUAAJkLAIDMBQAAmQsAADIXAABkLgAAyFwAAJC5AADIXAAAkLkAACBzAQBA5gIAgMwFAEDmAgCAzAUAAJkLAAAyFwAAZC4AAMhcAABkLgAAyFwAAJC5AAAgcwEAQOYCACBzAQBA5gIAgMwFAACZCwAAMhcAAGQuAAAyFwAAZC4AAMhcAACQuQAAIHMBAJC5AAAgcwEAQOYCAMCvyfiuZn15M377k5ubl8ehT3Xblnkap9bnJEl7auHTn15bsWjAeXi5lnmed1fbeZ2nQ2vz/XbaZ8nD9bhJSlrNmixJ1jIktWY868e7ljnJkClJ8j5JzTZ9TBufHugh//Lbfz282y0Py+vx1dVhcpEAF6z849r/7u+W15+Py5J5yfVV9nOWJeNHu9/Qn7/qkbnAufhszuGQzTa9Z5nz6kXu3j78/u9d1+R/Zm4uInPzIXNL3ifJKXN78pD0ZM3PfpLPh2xOGTy7RoBL9t8DACny45RrAEJ5AAAAAElFTkSuQmCC";
             pdf.addImage(imgData, 'JPEG', 45, 30, 30, 30);
             pdf.setFont("helvetica");
             pdf.setFontType("bold");
@@ -378,130 +402,130 @@ function demoFromHTML() {
             pdf.text(85, 58, "https://www.geomagnet.ru");
             pdf.text(420, 71, "e-mail: geomagnet@list.ru");
             pdf.setLineWidth(0.1);
-            pdf.line(45, 80, 540, 80); 
+            pdf.line(45, 80, 540, 80);
             pdf.setFontType("bold");
-            pdf.setFontSize(18);            
+            pdf.setFontSize(18);
             pdf.text(255, 123, "REPORT");
-            
-            
-            
+
+
+
             pdf.setFontType("normal");
             pdf.setFontSize(12);
-            pdf.text(200,155, "Geographical (Geodetic) Coordinates");
+            pdf.text(200, 155, "Geographical (Geodetic) Coordinates");
             pdf.setFontType("normal");
-            
+
             var columns = ["Latitude (GEO)", "Longitude (GEO)", "Elevation", "Date"];
             var rows = [
-                [lat_print+'\u00B0'+" N", long_print+'\u00B0'+" E", alt_print+" km", date_print]
+                [lat_print + '\u00B0' + " N", long_print + '\u00B0' + " E", alt_print + " km", date_print]
             ];
             pdf.autoTable(columns, rows, {
-            theme: 'grid',
-            headerStyles: {rowHeight: 19, fontSize: 10},
-            bodyStyles: {rowHeight: 16, fontSize: 10, valign: 'middle'},
-            tableWidth: 500,
-            headerStyles: {
-                fillColor:[211,211,211],
-                fontSize: 10,
-                textColor: [80,80,80]
-            },
-            styles: {
-                cellPadding: 2,
-                font: "helvetica", 
-                halign: 'center', 
-                valign: 'middle'
-            },
-            margin: {top: 165}
+                theme: 'grid',
+                headerStyles: { rowHeight: 19, fontSize: 10 },
+                bodyStyles: { rowHeight: 16, fontSize: 10, valign: 'middle' },
+                tableWidth: 500,
+                headerStyles: {
+                    fillColor: [211, 211, 211],
+                    fontSize: 10,
+                    textColor: [80, 80, 80]
+                },
+                styles: {
+                    cellPadding: 2,
+                    font: "helvetica",
+                    halign: 'center',
+                    valign: 'middle'
+                },
+                margin: { top: 165 }
             });
-            
-            
+
+
             pdf.setFontSize(12);
             //pdf.setFontType("bold");
-            pdf.text(235,235, "Geomagnetic Coordinates");
+            pdf.text(235, 235, "Geomagnetic Coordinates");
             pdf.setFontType("normal");
             columns = ["Latitude (MAG)", "Longitude (MAG)", "R (MAG), [km]"];
             rows = [[X_print, Y_print, Z_print]];
             pdf.autoTable(columns, rows, {
-            theme: 'grid',
-            headerStyles: {rowHeight: 19, fontSize: 10},
-            bodyStyles: {rowHeight: 16, fontSize: 10, valign: 'middle'},
-            tableWidth: 500,
-            headerStyles: {
-                fillColor:[211,211,211],
-                fontSize: 10,
-                textColor: [80,80,80]
-            },
-            styles: {
-                cellPadding: 2,
-                font: "helvetica", 
-                halign: 'center', 
-                valign: 'middle'
-            },
-            margin: {top: 250}
-            });            
-            
-            
+                theme: 'grid',
+                headerStyles: { rowHeight: 19, fontSize: 10 },
+                bodyStyles: { rowHeight: 16, fontSize: 10, valign: 'middle' },
+                tableWidth: 500,
+                headerStyles: {
+                    fillColor: [211, 211, 211],
+                    fontSize: 10,
+                    textColor: [80, 80, 80]
+                },
+                styles: {
+                    cellPadding: 2,
+                    font: "helvetica",
+                    halign: 'center',
+                    valign: 'middle'
+                },
+                margin: { top: 250 }
+            });
+
+
             pdf.setFontSize(12);
             //pdf.setFontType("bold");
-            pdf.text(195,315, "Parameters of Geomagnetic Dipole");
-            pdf.setFontType("normal");            
+            pdf.text(195, 315, "Parameters of Geomagnetic Dipole");
+            pdf.setFontType("normal");
             columns = ["Coordinates of North Pole", "Magnetic Moment"];
-            rows = [[shir_geopole_print+'\u00B0'+" N, "+ dolg_geopole_print + '\u00B0'+" E",mom_geo_print + " T"+'\u00B7'+"m"+'\u00B3']];
+            rows = [[shir_geopole_print + '\u00B0' + " N, " + dolg_geopole_print + '\u00B0' + " E", mom_geo_print + " T" + '\u00B7' + "m" + '\u00B3']];
             pdf.autoTable(columns, rows, {
-            theme: 'grid',
-            headerStyles: {rowHeight: 19, fontSize: 10},
-            bodyStyles: {rowHeight: 16, fontSize: 10, valign: 'middle'},
-            tableWidth: 500,
-            headerStyles: {
-                fillColor:[211,211,211],
-                fontSize: 10,
-                textColor: [80,80,80]
-            },
-            styles: {
-                cellPadding: 2,
-                font: "helvetica", 
-                halign: 'center', 
-                valign: 'middle'
-            },
-            margin: {top: 330}
-            });             
-            
-            pdf.text(195,395, "Parameters of Main Geomagnetic Field");
-            pdf.setFontType("normal");               
-            columns = ["North (X)","East (Y)","Down (Z)","Total (F)","D","I"];
-            rows = [[Bx_print + " nT", By_print +" nT", Bz_print + " nT", B_print+" nT",m_skl_print+'\u00B0',m_nakl_print+'\u00B0']];
-            pdf.autoTable(columns, rows, {
-            theme: 'grid',
-            headerStyles: {rowHeight: 19, fontSize: 10},
-            bodyStyles: {rowHeight: 16, fontSize: 10, valign: 'middle'},
-            tableWidth: 500,
-            headerStyles: {
-                fillColor:[211,211,211],
-                fontSize: 10,
-                textColor: [80,80,80]
-            },
-            styles: {
-                cellPadding: 2,
-                font: "helvetica", 
-                halign: 'center', 
-                valign: 'middle'
-            },
-            margin: {top: 410}
-            });             
-            
-            pdf.setLineWidth(0.1);
-            pdf.setDrawColor(0,0,0); 
-            pdf.line(45, 480, 540, 480); 
-            pdf.setFontSize(9);
-            pdf.text(327,492, "Generated by GEOMAGNET at " + document.getElementById("timestamp").innerHTML);
-            
-        //    pdf.save('hello_world.pdf');				
-        pdf.output('dataurlnewwindow'); 
-				
-				
-				
-					//
+                theme: 'grid',
+                headerStyles: { rowHeight: 19, fontSize: 10 },
+                bodyStyles: { rowHeight: 16, fontSize: 10, valign: 'middle' },
+                tableWidth: 500,
+                headerStyles: {
+                    fillColor: [211, 211, 211],
+                    fontSize: 10,
+                    textColor: [80, 80, 80]
+                },
+                styles: {
+                    cellPadding: 2,
+                    font: "helvetica",
+                    halign: 'center',
+                    valign: 'middle'
+                },
+                margin: { top: 330 }
+            });
 
-}
-</script>    
+            pdf.text(195, 395, "Parameters of Main Geomagnetic Field");
+            pdf.setFontType("normal");
+            columns = ["North (X)", "East (Y)", "Down (Z)", "Total (F)", "D", "I"];
+            rows = [[Bx_print + " nT", By_print + " nT", Bz_print + " nT", B_print + " nT", m_skl_print + '\u00B0', m_nakl_print + '\u00B0']];
+            pdf.autoTable(columns, rows, {
+                theme: 'grid',
+                headerStyles: { rowHeight: 19, fontSize: 10 },
+                bodyStyles: { rowHeight: 16, fontSize: 10, valign: 'middle' },
+                tableWidth: 500,
+                headerStyles: {
+                    fillColor: [211, 211, 211],
+                    fontSize: 10,
+                    textColor: [80, 80, 80]
+                },
+                styles: {
+                    cellPadding: 2,
+                    font: "helvetica",
+                    halign: 'center',
+                    valign: 'middle'
+                },
+                margin: { top: 410 }
+            });
+
+            pdf.setLineWidth(0.1);
+            pdf.setDrawColor(0, 0, 0);
+            pdf.line(45, 480, 540, 480);
+            pdf.setFontSize(9);
+            pdf.text(327, 492, "Generated by GEOMAGNET at " + document.getElementById("timestamp").innerHTML);
+
+            //    pdf.save('hello_world.pdf');
+            pdf.output('dataurlnewwindow');
+
+
+
+            //
+
+        }
+    </script>
 </body>
 </html>
