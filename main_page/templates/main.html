@@ -14,7 +14,7 @@
     <meta name="description" content="" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="shortcut icon" href="{%static "images/favicon.png"%}" />
     <link rel="stylesheet" href="{%static "libs/bootstrap/bootstrap-grid-3.3.1.min.css"%}" />
     <link rel="stylesheet" href="{%static "libs/font-awesome-4.2.0/css/font-awesome.min.css"%}" />
     <link rel="stylesheet" href="{%static "libs/fancybox/jquery.fancybox.css"%}" />
@@ -219,6 +219,41 @@
                             <i class="icon fa fa-calendar simple-text"></i>
                         </div>
                     </div>
+                </div>
+                <div style="padding-top: 25px">
+                    <span class="simple-text">Isolines</span>
+                    <table>
+                        <tr >
+                            <td >
+
+                                <label for = "rbBX">
+                                BX
+                            </label>
+
+                             <input id = "rbBX" type="radio" value="BX" name = "iso" checked
+                                    style=" width: 14px; height:14px ; display: table-cell; text-align: center;  vertical-align: middle;">
+
+                            </td>
+
+                            <td>
+                                <label for="rbBY" >BY</label>
+                                <input id = "rbBY" type="radio" value = "BY" name = "iso"
+                                       style = "width: 14px; height:14px ; display: table-cell;  text-align: center;  vertical-align: middle;">
+                            </td>
+
+                            <td>
+                                <label for = "rbBZ"> BZ</label>
+                                <input  id = "rbBZ" type="radio" value="BZ" name = "iso"
+                                        style = "width: 14px; height:14px ; display: table-cell;  text-align: center;  vertical-align: middle;">
+                            </td>
+
+                            <td>
+                                <label for = "rbB">B</label>
+                                <input id = "rbB" type="radio" value = "B" name = "iso"
+                                       style = "width: 14px; height:14px ; display: table-cell;  text-align: center;  vertical-align: middle;">
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div style="padding-top: 25px">
                     <table>

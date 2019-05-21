@@ -2,13 +2,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
-from .calculator import calculate, getIsolines
+#from .calculator import calculate, getIsolines
 
 
 
 
 def calc(request):
-    print('in calc'+str(request))
+    from .calculator import calculate
     north = float(request.GET['lat'])  # _GET['lat'] северная широта (южная со знаком "-")
     east = float(request.GET['lng'])   # _GET['lng'] восточная долгота (западная со знаком"-")
     alt = float(request.GET['alt'])    # _GET['alt'] высота над уровнем моря, км
@@ -17,10 +17,13 @@ def calc(request):
     proto_f = calculate(north, east, alt, year, UT)
     jsonStringBx = json.dumps(proto_f)	
     return HttpResponse(jsonStringBx)
-	
+
+
 def iso(request):
-	print(str(request))
-	year = float(request.GET['data'])
-	result = getIsolines(year)
+    from .calculator import getIsolines
+    print(str(request))
+    year = float(request.GET['data'])
+    code = str(request.GET['code'])
+    result = getIsolines(year, code)
 	#jsonRes = json.dumps(result)
-	return HttpResponse(result)
+    return HttpResponse(result)

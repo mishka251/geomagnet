@@ -16,7 +16,8 @@ var request = null,
 
 var marker = null, view = null;
 var isolynes = {};
-
+var isolynesLayers = {};
+var markerLayer = null;
 //const markerSymbol = {
 //    type: "simple-marker",  // autocasts as new SimpleMarkerSymbol()
 
@@ -30,19 +31,17 @@ const markerSymbol2D = {
     url: "/static/images/pic.svg", //"https://static.arcgis.com/images/Symbols/Shapes/BlackStarLargeB.png",
     //color: [226, 119, 40],
     width: 31,//"64px",
-    height:31// "64px"
+    height: 31// "64px"
 };
 
 
-const markerSymbol3D = {
+const markerSymbol3D = {  // symbol type required for rendering point geometries
     type: "point-3d",  // autocasts as new PointSymbol3D()
-    symbolLayers: [{
+    symbolLayers: [{  // renders points as volumetric objects
         type: "object",  // autocasts as new ObjectSymbol3DLayer()
-        width: 5,  // diameter of the object from east to west in meters
-        height: 20,  // height of the object in meters
-        depth: 15,  // diameter of the object from north to south in meters
-        resource: { primitive: "cone" },
-        material: { color: "red" }
+        resource: { primitive: "inverted-cone" },  // renders points as cones
+        material: { color: "red" },
+        width: 50000
     }]
 };
 
@@ -55,6 +54,41 @@ var lineSymbol = {
     width: 1
 };
 
+// Символ - как будет рисоваться
+var lineSymbolMin = {
+    type: "simple-line",  // autocasts as SimpleLineSymbol()
+    color: [0, 0, 250],
+    width: 1
+};
+
+// Символ - как будет рисоваться
+var lineSymbolZero = {
+    type: "simple-line",  // autocasts as SimpleLineSymbol()
+    color: [0, 250, 0],
+    width: 1
+};
+
+// Символ - как будет рисоваться
+var lineSymbolMax = {
+    type: "simple-line",  // autocasts as SimpleLineSymbol()
+    color: [226, 0, 0],
+    width: 1
+};
+
+// Символ - как будет рисоваться
+var lineSymbolMinBold = {
+    type: "simple-line",  // autocasts as SimpleLineSymbol()
+    color: [0, 0, 250],
+    width: 3
+};
+
+// Символ - как будет рисоваться
+var lineSymbolMaxBold = {
+    type: "simple-line",  // autocasts as SimpleLineSymbol()
+    color: [226, 0, 0],
+    width: 3
+};
+
 var popupTemplate = {  // autocasts as new PopupTemplate()
     title: "{Name}",
     content: [{
@@ -62,7 +96,7 @@ var popupTemplate = {  // autocasts as new PopupTemplate()
         fieldInfos: [{
             fieldName: "Name"
         }, {
-            fieldName: "BxValue"
+            fieldName: "Value"
         }]
     }]
 };
@@ -83,26 +117,41 @@ function requireHandler(Map,
     Point,
     webMercatorUtils,
     SimpleMarkerSymbol,
-    Color
+    Color,
+    GraphicsLayer
 ) {
+
+
+    isolynesLayers[500] = new GraphicsLayer({ graphics: [] });
+    isolynesLayers[1000] = new GraphicsLayer({ graphics: [] });
+    isolynesLayers[2500] = new GraphicsLayer({ graphics: [] });
+    isolynesLayers[5000] = new GraphicsLayer({ graphics: [] });
+
 
     map = new Map(
         {
             basemap: "gray"
         }
     );
+    map.addMany([isolynesLayers[500], isolynesLayers[1000], isolynesLayers[2500], isolynesLayers[5000]]);
 
+    markerLayer = new GraphicsLayer();
+
+    map.add(markerLayer);
+
+    // map.add(isolynesLayers[2500]);
     // const view = new SceneView({
     view = new MapView({
         container: "map",
         map: map,
         zoom: 5,
-        minZoom: 3,
         center: [54.7249, 55.9425]
     });
 
+    view.constraints = { minZoom: 3 };
+
     var geoLocate = new LocateButton({
-        map: map
+        view: view// map: map
     }, "LocateButton");
 
     // console.log('zoom=' + view.zoom);
@@ -117,6 +166,7 @@ function requireHandler(Map,
     function viewOnResize(evt) {
         console.log('wheel start');
         var zoom = view.zoom;
+        var step1 = getStepForZoom(zoom);
         if (evt.deltaY > 0) {
             zoom--;
         }
@@ -126,11 +176,23 @@ function requireHandler(Map,
         console.log(evt.deltaY);
         console.log('zoom' + zoom);
 
-        isolyneStep = getStepForZoom(zoom);
-        console.log('step=' + isolyneStep);
-        drawIsolynes(isolyneStep);
-        console.log('wheel-end');
+        isolyneStep2 = getStepForZoom(zoom);
+        console.log('step=' + isolyneStep2);
+        if (step1 !== isolyneStep2) {
 
+            console.log('change from ' + step1 + ' to ' + isolyneStep2);
+            // setTimeout(
+            //  function () {
+            for (var step in isolynesLayers)
+                isolynesLayers[step].visible = false;
+            //isolynesLayers[step1].visible = false;
+            isolynesLayers[isolyneStep2].visible = true;
+            //  }, 50);
+
+            // console.log(isolynesLayers[step1]);
+        }
+
+        console.log('wheel-end');
     }
 
     function getStepForZoom(zoom) {
@@ -142,7 +204,6 @@ function requireHandler(Map,
             return 1000;
         return 500;
     }
-
 
     function pickPoint(evt) {
         console.log('click');
@@ -160,13 +221,12 @@ function requireHandler(Map,
         console.log('click end');
     }
 
-
     //
     function initFunc(view) {
         console.log('init');
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
-            // watchId = navigator.geolocation.watchPosition(showLocation, locationError);
+             //watchId = navigator.geolocation.watchPosition(showLocation, locationError);
         } else {
             alert("Browser doesn't support Geolocation");
         }
@@ -177,7 +237,7 @@ function requireHandler(Map,
         //    '"300.0":[[{"x":0, "y":-170}, {"x":10, "y":175}], [{"x":-5, "y":-175}, {"x":0, "y":-170}]]' +
         //    '} ';
         // console.log(jsonTestPoints);
-       // var testPoints = JSON.parse(jsonTestPoints);
+        // var testPoints = JSON.parse(jsonTestPoints);
         //console.log(testPoints);
         // drawIsolines(testPoints);
 
@@ -190,25 +250,25 @@ function requireHandler(Map,
 
     function getIsolines() {
         get_year();
+        code = getIsoCode();
+        getIsolines2(data, code);
+    }
 
-        var url = "/calc/iso/?data=" + data;
+    function getIsolines2(year, code) {
+
+        var url = "/calc/iso/?data=" + year + "&code=" + code;
         $.ajax({
             url: url,
             context: document.body,
             success: function (json) {
                 isolynes = JSON.parse(json);
-                // console.log(isolynes);
+                console.log(isolynes);
                 lynesStep = getStepForZoom(view.zoom);
-                // drawIsolines(isolynes, lynesStep);
                 createIsolynes(isolynes);
-                drawIsolynes(lynesStep);
                 console.log('success get iso');
-                //console.log(json);
             }
         });
     }
-
-
 
     function createIsolyne(points, val) {
         result = [];
@@ -216,7 +276,7 @@ function requireHandler(Map,
         // Атрибуты линии - для подписи
         var lineAtt = {
             Name: "Isomagnet line",
-            BxValue: val + " nT"
+            Value: val + " nT"
         };
 
 
@@ -231,7 +291,7 @@ function requireHandler(Map,
                 p = points[i1][i];
                 if (i > 0) {
                     prev = points[i1][i - 1];
-                    if (prev.y < -150 && p.y > 150) {//пересекает 180
+                   if (prev.y < -150 && p.y > 150) {//пересекает 180
                         x = (prev.x + prev.x) / 2;
                         path.push([-180, x]);
                         polyline.paths.push(path);
@@ -252,6 +312,22 @@ function requireHandler(Map,
             polyline.paths.push(path);
 
 
+            var s = lineSymbol;
+
+            if (val < 0) {
+                if (val % 10000 == 0)
+                    s = lineSymbolMinBold;
+                else
+                    s = lineSymbolMin;
+
+            } if (val == 0)
+                s = lineSymbolZero;
+            if (val > 0) {
+                if (val % 10000 == 0)
+                    s = lineSymbolMaxBold;
+                else
+                    s = lineSymbolMax;
+            }
             /*******************************************
              * Create a new graphic and add the geometry,
              * symbol, and attributes to it. You may also
@@ -261,7 +337,7 @@ function requireHandler(Map,
              ******************************************/
             var polylineGraphic = new Graphic({
                 geometry: polyline,
-                symbol: lineSymbol,
+                symbol: s,
                 attributes: lineAtt,
                 popupTemplate: popupTemplate
             });
@@ -269,24 +345,43 @@ function requireHandler(Map,
             result.push(polylineGraphic);
 
         }
-
+        console.log('created');
         return result;
     }
 
 
     function createIsolynes(points) {
+
+        for (var step in isolynesLayers) {
+            map.layers.remove(isolynesLayers[step]);
+            isolynesLayers[step] = new GraphicsLayer({ graphics: [] });
+            map.layers.add(isolynesLayers[step]);
+        }
+
         console.log('create lynes');
         for (var bx in points) {
             lines = createIsolyne(points[bx], bx);
             isolynes[bx] = lines;
+            for (var step in isolynesLayers) {
+                if (bx % step === 0) {
+                    isolynesLayers[step].addMany(lines);
+                }
+            }
         }
+        for (var step in isolynesLayers) {
+            isolynesLayers[step].visible = false;
+        }
+
+        nowStep = getStepForZoom(view.zoom);
+        isolynesLayers[nowStep].visible = true;
+        console.log(isolynesLayers);
         console.log('create lynes end');
     }
 
 
     function locationError(error) {
         if (navigator.geolocation) {
-            // navigator.geolocation.clearWatch(watchId);
+            navigator.geolocation.clearWatch(watchId);
         }
 
         switch (error.code) {
@@ -308,7 +403,7 @@ function requireHandler(Map,
         }
     }
     function geolocation() {
-        console.log('geolocation  in');
+        // console.log('geolocation  in');
         //map.graphics.clear();
         navigator.geolocation.getCurrentPosition(function (position) {
             var shir = position.coords.latitude.toFixed(4);
@@ -316,9 +411,10 @@ function requireHandler(Map,
             shir_ = shir;
             dolg_ = dolg;
             var point = new Point(dolg, shir);
-            point = esri.geometry.geographicToWebMercator(point);
+            point = webMercatorUtils.geographicToWebMercator(point);
             createMarker(point);
             insert_coords(shir, dolg, 0);
+            //  console.log('in get cur pos');
         }, function errorCallback(error) {
             alert("Невозможно определение текущей геопозиции");
         },
@@ -326,7 +422,7 @@ function requireHandler(Map,
                 maximumAge: Infinity,
                 timeout: 2000
             });
-        console.log('geolocation ok');
+        //console.log('geolocation ok');
     }
     function zoomToLocation(location) {
         console.log('zoom in');
@@ -342,22 +438,24 @@ function requireHandler(Map,
         createMarker(point);
         insert_coords(shir, dolg, 0);
         //addGraphic(pt);
-        view.goTo({ target: pt, zoom: 15 });
+        view.goTo({ target: pt, zoom: 10/*15*/ });
         console.log('zoom ok');
     }
 
     //console.log('ok');
 
     function createMarker(point) {
-        console.log('createMarker in');
+        //  console.log('createMarker in');
         if (marker !== null)
-            view.graphics.remove(marker);
+            //marker.point = point;
+            markerLayer.remove(marker);//view.graphics.remove(marker);
 
 
         marker = new Graphic(point, markerSymbol);
-        console.log(marker);
-        view.graphics.add(marker);
-        console.log('createMarker ok');
+
+        // console.log(marker);
+        markerLayer.add(marker); //view.graphics.add(marker);
+        // console.log('createMarker ok');
     }
     //геокодирование	
     function codeAddress() {
@@ -382,18 +480,18 @@ function requireHandler(Map,
     }
 
 
-    function drawIsolynes(step) {
-        // console.log('draw');
-        view.graphics.removeAll();
-        for (var key in isolynes) {
-            if (key % step === 0)
-                for (var i = 0; i < isolynes[key].length; i++)
-                    view.graphics.add(isolynes[key][i]);
-        }
-        view.graphics.add(marker);
+    //function drawIsolynes(step) {
+    //    // console.log('draw');
+    //    view.graphics.removeAll();
+    //    for (var key in isolynes) {
+    //        if (key % step === 0)
+    //            for (var i = 0; i < isolynes[key].length; i++)
+    //                view.graphics.add(isolynes[key][i]);
+    //    }
+    //    view.graphics.add(marker);
 
-        console.log('draw end');
-    }
+    //    console.log('draw end');
+    //}
 
 
 
@@ -414,10 +512,6 @@ function requireHandler(Map,
         });
         console.log('reverse ok');
     }
-
-
-
-
 
 
     function convert_from_dd_to_dms() {
@@ -684,6 +778,7 @@ function requireHandler(Map,
             url: url,
             context: document.body,
             success: function (xml) {
+                // console.log(xml);
                 showCalcResults(xml);
             }
         });
@@ -808,20 +903,20 @@ function requireHandler(Map,
 
         var zoom = view.zoom;
         var center = view.center;
-        
+
         var graphics = view.graphics;
         graphics.remove(marker);
-        if (document.getElementById("switch_2d3d").checked) { 
+        if (document.getElementById("switch_2d3d").checked) {
 
             view = new MapView({
                 container: "map",
                 map: map,
                 zoom: zoom,
-                minZoom: 3,
+                minZoom: 5,
                 center: center,
                 graphics: graphics
             });
-
+            view.constraints = { minZoom: 3 };
             markerSymbol = markerSymbol2D;
 
         } else {
@@ -829,7 +924,7 @@ function requireHandler(Map,
                 container: "map",
                 map: map,
                 zoom: zoom,
-                minZoom: 3,
+                minZoom: 5,
                 center: center,
                 graphics: graphics
                 //ui: []
@@ -873,10 +968,34 @@ function requireHandler(Map,
 
     ///////set handkers
 
+
+    function checkChangeDate() {
+        console.log('date changed');
+        get_year();
+        console.log('date = ' + data);
+        getIsolines();
+    }
+
+    function getIsoCode() {
+        var checked = $('input[type=radio][name = iso]:checked');
+        return checked.val();
+    }
+
+    function check_switch_iso() {
+        console.log('iso changed');
+        isoCode = getIsoCode();
+        console.log(isoCode);
+        getIsolines();
+    }
+
+
     $('#switch_2d3d').change(check_switch_2d3d);
     $('#switch_E').change(check_switch_E);
     $('#switch_N').change(check_switch_N);
     $('#switch_km').change(check_switch_km);
+
+    $('#data1').change(checkChangeDate);
+    $('input[type=radio][name = iso]').change(check_switch_iso);
 }
 
 
@@ -888,6 +1007,7 @@ require(["esri/Map",
     "esri/geometry/Point",
     "esri/geometry/support/webMercatorUtils",
     "esri/symbols/SimpleMarkerSymbol",
-    "esri/Color"
+    "esri/Color",
+    "esri/layers/GraphicsLayer"
 
 ], requireHandler);

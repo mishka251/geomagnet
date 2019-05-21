@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -
 from datetime import *
 from math import *
-from numpy import dot, arange, inf
+#from numpy import dot, arange, inf
 import time
+from os import listdir, getcwd
 from .matrs import get_actual_matrixes2 
 
 # ФИЗИЧЕСКИЕ (ИНВАРИАНТНЫЕ) ПАРАМЕТРЫ ЗЕМЛИ\n")
@@ -40,6 +41,22 @@ def epsilon(i):
     else:
         eps = 2
     return eps
+
+def dotmm(a1, b1):
+    res = [0]*(len(a1))
+    for i in range(len(a1)):
+        res[i] = [0]*len(b1[0])
+        for j in range(len(b1[0])):
+            for k in range(len(b1)):
+                res[i][j] +=a1[i][k]*b1[k][j] 
+    return res
+
+def dotmv(a1, b1):
+    res = [0]*(len(a1[0]))
+    for i in range(len(a1)):
+        for j in range(len(b1)):
+            res[i] +=a1[i][j]*b1[j] 
+    return res
 
 def P(n, m, teta):
     """функция расчета
@@ -207,10 +224,10 @@ def calcMAG(north, east, alt, F_g, F_h):
         [-sin(lamda), cos(lamda), 0],
         [0,               0,      1]]
 # Умножение матриц: t5 = t5Y*t5Z
-    t5 = dot(t5Y, t5Z)
+    t5 = dotmm(t5Y, t5Z)
 
 # Умножение матриц: MAG = t5*tGEO
-    MAG = dot(t5, GEO)
+    MAG = dotmv(t5, GEO)
 # пересчет в град
     latMAG = degrees(atan((MAG[2]) / (sqrt(MAG[0] ** 2 + MAG[1] ** 2))))
     if(MAG[1] > 0):
@@ -331,7 +348,58 @@ def calculate(north, east, alt, year, UT):
 
 
 
-def getIsolines(year):
-    f = open('calc/log2014.txt', 'r')
+def getIsolines(year, code = 'bx'):
+    #print(code)
+    files = listdir('calc/'+code+'/')
+    #print(files)
+    #print([name[9:13] if code=='B' else name[10:14] for name in files])
+    years = [int(name[0:4]) for name in files]
+    #print(code, year, years)
+    fileYear = years[0]
+    #print(year, years)
+    for fYear in years:
+        if abs(fYear-year)<abs(fileYear-year):
+            print(str(abs(fYear-year))+'<'+str(abs(fileYear-year)))
+            fileYear=fYear
+    #if code=='BX' or code=='BZ':
+    #filename = 'calc/'+code+'/'+str(fileYear)+'.txt'
+	
+	
+	
+    filename = "calc/"+code+str(int(year))+".txt"
+	
+	
+    #else:
+        #filename = 'calc/'+code+'1965'+'.txt'	    
+    #print(filename)
+    #print(year)
+    #f = open('calc/'+code+'/cleared_'+code+str(fYear)+'.txt', 'r')
+    #y = str(int(year))
+
+    #ftype ='.txt'
+
+    #try:
+    #    f = open('calc/'+code+y+'(1)'+ftype,'r')
+    #except :
+
+     #   f = open('calc/'+code+'2018'+ftype, 'r')
+
+    #filename = 'calc/'+'cleared_'
+    #filename+=code
+    #filename+='2000.txt'
+    #if code=='B':
+    #    filename+='b2018.txt'
+
+    #if code=='BX':
+    #    filename+='bx2018.txt'
+
+    #if code=='BY':
+    #    filename+='by2018.txt'
+
+    #if code=='BZ':
+    #    filename+='bz2017.txt'
+
+    f = open(filename, 'r')
     line = f.readline()
+    print('ok')
     return line
